@@ -1,0 +1,105 @@
+#:import rgba kivy.utils.get_color_from_hex
+<ItemDrawer>:
+    on_release: root.do_action()
+    IconLeftWidget:
+        id: icon
+        icon: root.icon
+        theme_text_color : "Custom"
+        text_color: rgba("#6C757D")
+
+MDScreen:
+    MDNavigationLayout:
+        ScreenManager:
+            MDScreen:
+                name: "home"
+                MDBoxLayout:
+                    orientation: "vertical"
+                    md_bg_color: app.background_color
+
+                    MDToolbar:
+                        title: "SRT"
+                        left_action_items: [["menu", lambda x : nav_drawer.set_state("open")]]
+                        md_bg_color: rgba("#22222b")
+                    MDBottomNavigation:
+                        panel_color: rgba("#22222b")
+                        MDBottomNavigationItem:
+                            name: "home"
+                            text: "HOME"
+                            icon: "home"
+                            MDBoxLayout:
+                                orientation: "vertical"
+                                md_bg_color: app.background_color
+                                MDLabel:
+                                MDFillRoundFlatButton:
+                                    text: "UPLOAD THE SRT FILE"
+                                    pos_hint: {"center_x": .5, "center_y": .5}
+                                    md_bg_color: rgba("#22222b")
+                                MDLabel:
+                                MDFillRoundFlatButton:
+                                    text: "LEARN UNKNOWN WORDS"
+                                    pos_hint: {"center_x": .5}
+                                    md_bg_color: rgba("#ff922f")
+                                MDLabel:
+                                MDLabel:
+                                    text: "Do you want to change color unknown words in srt file?"
+                                    color: rgba("#8fff00")
+                                    halign: "center"
+                                MDBoxLayout:
+                                    orientation: "horizontal"
+                                    MDLabel:
+                                    MDFillRoundFlatButton:
+                                        text: "YES"
+                                        pos_hint: {"center_x": .5}
+                                        md_bg_color: rgba("#22222b")
+                                    MDLabel:
+                                    MDFillRoundFlatButton:
+                                        text: "NO"
+                                        pos_hint: {"center_x": .5}
+                                        md_bg_color: rgba("#22222b")
+                                    MDLabel:
+                                MDLabel:
+                        MDBottomNavigationItem:
+                            name: "learn"
+                            text: "WORDS"
+                            icon: "book"
+                            MDCard:
+                                md_bg_color: app.background_color
+                                MDLabel:
+                                    text: "WORDS"
+                                    color: rgba("#ffffff")
+                                    halign: "center"
+
+        MDNavigationDrawer:
+            md_bg_color: app.background_color
+            id: nav_drawer
+
+            BoxLayout:
+                orientation: "vertical"
+                padding: "8dp"
+                spacing: "8dp"
+                AnchorLayout:
+                    anchor_x: "left"
+                    size_hint_y: None
+                    height: avatar.height
+
+                    Image:
+                        id: avatar
+                        size_hint: None, None
+                        size: "56dp", "56dp"
+                        source: "SRT.png"
+                MDLabel:
+                    text: "SRT LEARNING"
+                    color: rgba("#ffffff")
+                    font_style: "Button"
+                    size_hint_y: None
+                    height: self.texture_size[1]
+                MDLabel:
+                    text: "atleownhem@gmail.com"
+                    color: rgba("#f2f2f2")
+                    font_style: "Caption"
+                    size_hint_y: None
+                    height: self.texture_size[1]
+                ScrollView:
+                    DrawerList:
+                        id: md_list
+
