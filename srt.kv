@@ -1,11 +1,14 @@
 #:import rgba kivy.utils.get_color_from_hex
 <ItemDrawer>:
-    on_release: root.do_action()
     IconLeftWidget:
         id: icon
         icon: root.icon
         theme_text_color : "Custom"
         text_color: rgba("#6C757D")
+
+<Word>:
+    theme_text_color : "Custom"
+    text_color: rgba("#E9ECEF")
 
 MDScreen:
     MDNavigationLayout:
@@ -17,6 +20,7 @@ MDScreen:
                     md_bg_color: app.background_color
 
                     MDToolbar:
+                        id: toolbar
                         title: "SRT"
                         left_action_items: [["menu", lambda x : nav_drawer.set_state("open")]]
                         md_bg_color: rgba("#22222b")
@@ -62,12 +66,13 @@ MDScreen:
                             name: "learn"
                             text: "WORDS"
                             icon: "book"
-                            MDCard:
+                            MDBoxLayout:
+                                orientation: "vertical"
                                 md_bg_color: app.background_color
-                                MDLabel:
-                                    text: "WORDS"
-                                    color: rgba("#ffffff")
-                                    halign: "center"
+                                ScrollView:
+                                    MDList:
+                                        id: word_list
+                                        md_bg_color: rgba("#343A40")
 
         MDNavigationDrawer:
             md_bg_color: app.background_color
