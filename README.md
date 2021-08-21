@@ -10,9 +10,11 @@
 ## Installation
 
 Depending on the platform you are using, you can download its file from the Github releases section.
+! For now , you can clone the repo or download as zip file.
 
 ## Usage
 
+You can run program with `python main.py`.
 To use the program, you first upload the srt file using the upload srt button on the main page.
 
 ![homeScreen](homeScreen.png)
