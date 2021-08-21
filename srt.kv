@@ -38,11 +38,13 @@ MDScreen:
                                     text: "UPLOAD THE SRT FILE"
                                     pos_hint: {"center_x": .5, "center_y": .5}
                                     md_bg_color: rgba("#22222b")
+                                    on_release: app.file_manager_open()
                                 MDLabel:
                                 MDFillRoundFlatButton:
-                                    text: "LEARN UNKNOWN WORDS"
+                                    text: "SHOW YOUR STATUS"
                                     pos_hint: {"center_x": .5}
                                     md_bg_color: rgba("#ff922f")
+                                    on_release: app.btn_learn_words()
                                 MDLabel:
                                 MDLabel:
                                     text: "Do you want to change color unknown words in srt file?"
@@ -55,11 +57,13 @@ MDScreen:
                                         text: "YES"
                                         pos_hint: {"center_x": .5}
                                         md_bg_color: rgba("#22222b")
+                                        on_release: app.btn_yes()
                                     MDLabel:
                                     MDFillRoundFlatButton:
                                         text: "NO"
                                         pos_hint: {"center_x": .5}
                                         md_bg_color: rgba("#22222b")
+                                        on_release: app.btn_no()
                                     MDLabel:
                                 MDLabel:
                         MDBottomNavigationItem:
@@ -73,6 +77,21 @@ MDScreen:
                                     MDList:
                                         id: word_list
                                         md_bg_color: rgba("#343A40")
+                                MDBoxLayout:
+                                    orientation: "horizontal"
+                                    MDLabel:
+                                    MDFillRoundFlatButton:
+                                        text: "PREVIOUS PAGE"
+                                        md_bg_color: rgba("#22222b")
+                                        pos_hint: {"center_y": .3}
+                                        on_release: app.btn_previous_page()
+                                    MDLabel:
+                                    MDFillRoundFlatButton:
+                                        text: "NEXT PAGE"
+                                        md_bg_color: rgba("#22222b")
+                                        pos_hint: {"center_y": .3}
+                                        on_release: app.btn_next_page()
+                                    MDLabel:
 
         MDNavigationDrawer:
             md_bg_color: app.background_color
