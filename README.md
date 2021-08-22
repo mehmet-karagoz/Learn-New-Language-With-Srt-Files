@@ -9,8 +9,7 @@
 
 ## Installation
 
-Depending on the platform you are using, you can download its file from the Github releases section.
-! For now , you can clone the repo or download as zip file.
+Depending on the platform you are using, you can download its file from the [Github releases](https://github.com/mehmet-karagoz/Learn-New-Language-With-Srt-Files/releases) section.
 
 ## Usage
 
