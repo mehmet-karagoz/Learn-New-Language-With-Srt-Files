@@ -2,6 +2,7 @@ import string
 from deep_translator import GoogleTranslator
 import pysrt
 from kivy.core.window import Window
+from kivy.lang import Builder
 from kivy.properties import StringProperty, ColorProperty
 from kivy.utils import rgba
 from kivymd.app import MDApp
@@ -9,6 +10,7 @@ from kivymd.theming import ThemableBehavior
 from kivymd.toast import toast
 from kivymd.uix.filemanager import MDFileManager
 from kivymd.uix.list import OneLineIconListItem, MDList, OneLineListItem
+
 
 icons_item = {
     "folder": "My files",
@@ -76,6 +78,9 @@ class SrtApp(MDApp):
             exit_manager=self.exit_manager,
             select_path=self.select_path,
         )
+
+    def build(self):
+        self.icon = "icon.png"
 
     def file_manager_open(self):
         self.file_manager.show('/')  # output manager to the screen
