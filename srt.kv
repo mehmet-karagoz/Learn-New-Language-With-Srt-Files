@@ -6,10 +6,27 @@
         icon: root.icon
         theme_text_color : "Custom"
         text_color: rgba("#6C757D")
+<SwipeToLearnWord>:
+    size_hint_y: None
+    height: content.height
+    anchor: "right"
+    type_swipe: "auto"
+    on_swipe_complete: app.on_swipe_complete(root)
 
-<Word>:
-    theme_text_color : "Custom"
-    text_color: rgba("#E9ECEF")
+    MDCardSwipeLayerBox:
+
+    MDCardSwipeFrontBox:
+
+        md_bg_color: app.background_color
+        theme_text_color : "Custom"
+        text_color: rgba("#6C757D")
+        OneLineListItem:
+            id: content
+            text: root.text
+            theme_text_color : "Custom"
+            text_color: 1,1,1,1 
+            on_release: root.translate_pressed_text()
+            _no_ripple_effect: True
 
 MDScreen:
     MDNavigationLayout:
@@ -71,28 +88,31 @@ MDScreen:
                             name: "learn"
                             text: "WORDS"
                             icon: "book"
-                            MDBoxLayout:
-                                orientation: "vertical"
-                                md_bg_color: app.background_color
-                                ScrollView:
-                                    MDList:
-                                        id: word_list
-                                        md_bg_color: rgba("#343A40")
+                            MDScreen:
                                 MDBoxLayout:
-                                    orientation: "horizontal"
-                                    MDLabel:
-                                    MDFillRoundFlatButton:
-                                        text: "PREVIOUS PAGE"
-                                        md_bg_color: rgba("#22222b")
-                                        pos_hint: {"center_y": .3}
-                                        on_release: app.btn_previous_page()
-                                    MDLabel:
-                                    MDFillRoundFlatButton:
-                                        text: "NEXT PAGE"
-                                        md_bg_color: rgba("#22222b")
-                                        pos_hint: {"center_y": .3}
-                                        on_release: app.btn_next_page()
-                                    MDLabel:
+                                    orientation: "vertical"
+                                    md_bg_color: app.background_color
+                                    spacing: "10dp"
+                                    ScrollView:
+                                        MDList:
+                                            id: word_list
+                                            md_bg_color: rgba("#343A40")
+                                            padding: 0
+                                    MDBoxLayout:
+                                        orientation: "horizontal"
+                                        MDLabel:
+                                        MDFillRoundFlatButton:
+                                            text: "PREVIOUS PAGE"
+                                            md_bg_color: rgba("#22222b")
+                                            pos_hint: {"center_y": .3}
+                                            on_release: app.btn_previous_page()
+                                        MDLabel:
+                                        MDFillRoundFlatButton:
+                                            text: "NEXT PAGE"
+                                            md_bg_color: rgba("#22222b")
+                                            pos_hint: {"center_y": .3}
+                                            on_release: app.btn_next_page()
+                                        MDLabel:
 
         MDNavigationDrawer:
             md_bg_color: app.background_color

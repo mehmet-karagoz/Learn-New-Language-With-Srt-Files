@@ -10,7 +10,8 @@ from kivymd.theming import ThemableBehavior
 from kivymd.toast import toast
 from kivymd.uix.filemanager import MDFileManager
 from kivymd.uix.list import OneLineIconListItem, MDList, OneLineListItem
-
+from kivymd.uix.card import MDCardSwipe
+from kivymd.uix.behaviors import TouchBehavior
 
 icons_item = {
     "folder": "My files",
@@ -62,17 +63,21 @@ class DrawerList(ThemableBehavior, MDList):
     pass
 
 
-class Word(OneLineListItem):
+class SwipeToLearnWord(MDCardSwipe, TouchBehavior):
+    text = StringProperty()
     actual_word = StringProperty()
     translated_word = StringProperty()
 
-    def on_release(self):
+    def translate_pressed_text(self):
         if self.translated_word == "":
             self.translated_word = Processes().translate_word(self.actual_word)
         if self.text == self.actual_word:
             self.text = self.translated_word
         else:
             self.text = self.actual_word
+
+    def on_long_touch(self, touch, *args):
+        pass
 
 
 class SrtApp(MDApp):
@@ -130,7 +135,12 @@ class SrtApp(MDApp):
     def update_word_list(self):
         self.root.ids.word_list.clear_widgets()
         for text in srt_word_list[self.start_point : self.end_point]:
-            self.root.ids.word_list.add_widget(Word(text=text, actual_word=text))
+            self.root.ids.word_list.add_widget(
+                SwipeToLearnWord(text=text, actual_word=text)
+            )
+
+    def on_swipe_complete(self, instance):
+        self.root.ids.word_list.remove_widget(instance)
 
     @staticmethod
     def btn_learn_words():
