@@ -1,9 +1,10 @@
 import string
 from deep_translator import GoogleTranslator
+from kivy.event import ObjectWithUid
 import pysrt
 from kivy.core.window import Window
 from kivy.lang import Builder
-from kivy.properties import StringProperty, ColorProperty
+from kivy.properties import StringProperty, ColorProperty, ObjectProperty
 from kivy.utils import rgba
 from kivymd.app import MDApp
 from kivymd.theming import ThemableBehavior
@@ -97,6 +98,11 @@ class SrtApp(MDApp):
 
     def build(self):
         self.icon = "icon.png"
+
+    def change_screen(self, screen, *args):
+        print(f"Username: {self.root.ids.email.text}")
+        print(f"Password: {self.root.ids.password.text}")
+        self.root.ids.screen_manager.current = screen
 
     def file_manager_open(self):
         self.file_manager.show(self.user_data_dir)  # output manager to the screen
@@ -193,6 +199,7 @@ class SrtApp(MDApp):
         else:
             toast("Coming Soon")
             self.current_theme = "dark"
+
 
 if __name__ == "__main__":
     SrtApp().run()
