@@ -26,7 +26,6 @@
             theme_text_color : "Custom"
             text_color: 1,1,1,1 
             on_release: root.translate_pressed_text()
-            _no_ripple_effect: True
 
 MDScreen:
     MDNavigationLayout:
@@ -93,11 +92,10 @@ MDScreen:
                                     orientation: "vertical"
                                     md_bg_color: app.background_color
                                     spacing: "10dp"
-                                    ScrollView:
-                                        MDList:
-                                            id: word_list
-                                            md_bg_color: rgba("#343A40")
-                                            padding: 0
+                                    MDList:
+                                        id: word_list
+                                        md_bg_color: rgba("#343A40")
+                                        padding: 0
                                     MDBoxLayout:
                                         orientation: "horizontal"
                                         MDLabel:
@@ -147,4 +145,26 @@ MDScreen:
                 ScrollView:
                     DrawerList:
                         id: md_list
+                MDBoxLayout:
+                    orientation: "horizontal"
+                    MDLabel:
+                    IconLeftWidget:
+                        icon: "brightness-2"
+                        pos_hint: {"center_y":.5}
+                        theme_text_color : "Custom"
+                        text_color: rgba("#6C757D")
+                    MDSwitch:
+                        pos_hint: {"center_y":.5}
+                        width: dp(60)
+                        theme_thumb_color: "Custom"
+                        thumb_color: rgba("#6C757D")
+                        theme_thumb_down_color: "Custom"
+                        thumb_color_down: rgba("#f2f2f2")
+                        on_press: app.switch_theme()
+                    IconRightWidget:
+                        icon: "brightness-5"
+                        pos_hint: {"center_y": .5}
+                        theme_text_color : "Custom"
+                        text_color: rgba("#6C757D")
+                    MDLabel:
 

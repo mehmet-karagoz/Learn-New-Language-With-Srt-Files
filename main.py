@@ -9,7 +9,7 @@ from kivymd.app import MDApp
 from kivymd.theming import ThemableBehavior
 from kivymd.toast import toast
 from kivymd.uix.filemanager import MDFileManager
-from kivymd.uix.list import OneLineIconListItem, MDList, OneLineListItem
+from kivymd.uix.list import OneLineIconListItem, MDList
 from kivymd.uix.card import MDCardSwipe
 from kivymd.uix.behaviors import TouchBehavior
 
@@ -87,6 +87,7 @@ class SrtApp(MDApp):
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        self.current_theme = "dark"
         Window.bind(on_keyboard=self.events)
         self.manager_open = False
         self.file_manager = MDFileManager(
@@ -140,6 +141,8 @@ class SrtApp(MDApp):
             )
 
     def on_swipe_complete(self, instance):
+        global srt_word_list
+        srt_word_list.remove(instance.actual_word)
         self.root.ids.word_list.remove_widget(instance)
 
     @staticmethod
@@ -183,6 +186,13 @@ class SrtApp(MDApp):
     def btn_no(self):
         toast("Coming Soon")
 
+    def switch_theme(self):
+        if self.current_theme == "dark":
+            toast("Coming Soon")
+            self.current_theme = "light"
+        else:
+            toast("Coming Soon")
+            self.current_theme = "dark"
 
 if __name__ == "__main__":
     SrtApp().run()
