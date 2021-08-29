@@ -21,8 +21,9 @@ icons_item = {
     "upload": "Upload",
 }
 
-srt_word_list = []
+srt_word_list = set([])
 known_words = []
+user_list = [["mehmet", "tewhem", "abc@gmail.com", "asd"]]
 
 
 class Processes:
@@ -36,8 +37,10 @@ class Processes:
                 temp_word = word.translate(
                     str.maketrans("", "", string.punctuation)
                 ).lower()
-                if temp_word not in known_words:
-                    srt_word_list.append(temp_word)
+                if temp_word not in known_words and not any(
+                    map(str.isdigit, temp_word)
+                ):
+                    srt_word_list.add(temp_word)
 
     def read_known_words(self):
         global known_words
@@ -99,10 +102,36 @@ class SrtApp(MDApp):
     def build(self):
         self.icon = "icon.png"
 
-    def change_screen(self, screen, *args):
-        print(f"Username: {self.root.ids.email.text}")
-        print(f"Password: {self.root.ids.password.text}")
-        self.root.ids.screen_manager.current = screen
+    def login(self):
+        email = self.root.ids.email.text
+        password = self.root.ids.password.text
+        is_login = False
+        if email == "" or password == "":
+            toast("Please type your email and password")
+        else:
+            global user_list
+            for user in user_list:
+                if (email == user[1] or email == user[2]) and password == user[3]:
+                    self.root.ids.screen_manager.current = "app"
+                    is_login = True
+            if not is_login:
+                toast("Email or password incorrect!")
+        self.root.ids.email.text = ""
+        self.root.ids.password.text = ""
+
+    def register(self):
+        name = self.root.ids.r_name.text
+        username = self.root.ids.r_username.text
+        email = self.root.ids.r_email.text
+        password = self.root.ids.r_password.text
+
+        global user_list
+        user_list.append(list([name, username, email, password]))
+        self.root.ids.screen_manager.current = "login"
+        toast("Now, you can login the app")
+
+    def change_screen(self):
+        self.root.ids.screen_manager.current = "register"
 
     def file_manager_open(self):
         self.file_manager.show(self.user_data_dir)  # output manager to the screen
@@ -141,7 +170,7 @@ class SrtApp(MDApp):
 
     def update_word_list(self):
         self.root.ids.word_list.clear_widgets()
-        for text in srt_word_list[self.start_point : self.end_point]:
+        for text in list(srt_word_list)[self.start_point : self.end_point]:
             self.root.ids.word_list.add_widget(
                 SwipeToLearnWord(text=text, actual_word=text)
             )

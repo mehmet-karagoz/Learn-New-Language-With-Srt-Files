@@ -91,18 +91,109 @@ MDScreen:
                 MDFillRoundFlatButton:
                     text: "LOGIN"
                     pos_hint: {"center_x": .5, "center_y": .3}
-                    on_release: app.change_screen("app") 
+                    on_release: app.login() 
                     md_bg_color: rgba("#6C757D")
                     theme_text_color: "Custom"
                     text_color: rgba("#E9ECEF")
                 MDFillRoundFlatButton:
                     text: "REGISTER"
                     pos_hint: {"center_x": .5, "center_y": .2}
-                    on_release: app.change_screen("app") 
+                    on_release: app.change_screen()
                     md_bg_color: rgba("#6C757D")
                     theme_text_color: "Custom"
                     text_color: rgba("#E9ECEF")
- 
+        MDScreen:
+            name: "register"
+            MDFloatLayout:
+                orientation: "vertical"
+                md_bg_color: app.background_color
+                canvas.before:
+                    Color:
+                        rgba: rgba("#495057") # most
+                    Ellipse:
+                        size: self.size
+                        pos: (self.center_x // 2, self.center_y) 
+                    Ellipse:
+                        size: (500,500)
+                        pos: (0, self.center_y) 
+                    Ellipse:
+                        size: (500,500)
+                        pos: (1, 1) 
+                MDIcon:
+                    halign: 'center'
+                    icon: 'account-circle'
+                    font_size: '70sp'
+                    pos_hint: {'center_x': .5, 'center_y': .75}
+                    theme_text_color: "Custom"
+                    text_color: rgba("#ADB5BD")
+                MDLabel:
+                    text: "WELCOME THE LEARNING NEW LANGUAGE"
+                    halign: "center"
+                    pos_hint: {'center_x': .5, 'center_y': .6}
+                    theme_text_color: "Custom"
+                    text_color: rgba("#ADB5BD")
+                MDTextFieldRound:
+                    id: r_name
+                    foreground_color: rgba("#ADB5BD")
+                    icon_left: "account-box-outline"
+                    icon_left_color: rgba("#ADB5BD")
+                    normal_color: rgba("#6C757D")
+                    line_color_normal: rgba("#ADB5BD")
+                    line_color_focus: rgba("#ADB5BD")
+                    size: 300,1 
+                    size_hint: None, None
+                    hint_text: "name"
+                    current_hint_text_color: rgba("#ADB5BD")
+                    pos_hint : {"center_x": .5, "center_y": .5}
+                MDTextFieldRound:
+                    id: r_username
+                    foreground_color: rgba("#ADB5BD")
+                    icon_left: "account-circle-outline"
+                    icon_left_color: rgba("#ADB5BD")
+                    normal_color: rgba("#6C757D")
+                    line_color_normal: rgba("#ADB5BD")
+                    line_color_focus: rgba("#ADB5BD")
+                    size: 300,1 
+                    size_hint: None, None
+                    hint_text: "username"
+                    current_hint_text_color: rgba("#ADB5BD")
+                    pos_hint : {"center_x": .5, "center_y": .4}
+                MDTextFieldRound:
+                    id: r_email 
+                    foreground_color: rgba("#ADB5BD")
+                    icon_left: "email"
+                    icon_left_color: rgba("#ADB5BD")
+                    normal_color: rgba("#6C757D")
+                    line_color_normal: rgba("#ADB5BD")
+                    line_color_focus: rgba("#ADB5BD")
+                    size: 300,1 
+                    size_hint: None, None
+                    hint_text: "email"
+                    current_hint_text_color: rgba("#ADB5BD")
+                    pos_hint : {"center_x": .5, "center_y": .3}
+                MDTextFieldRound:
+                    id: r_password 
+                    password: True
+                    foreground_color: rgba("#ADB5BD")
+                    icon_left: "lock"
+                    icon_left_color: rgba("#ADB5BD")
+                    normal_color: rgba("#6C757D")
+                    line_color_normal: rgba("#ADB5BD")
+                    line_color_focus: rgba("#ADB5BD")
+                    size: 300,1 
+                    size_hint: None, None
+                    hint_text: "password"
+                    current_hint_text_color: rgba("#ADB5BD")
+                    pos_hint : {"center_x": .5, "center_y": .2}
+                MDFillRoundFlatButton:
+                    text: "REGISTER"
+                    pos_hint: {"center_x": .5, "center_y": .1}
+                    on_release: app.register()
+                    md_bg_color: rgba("#6C757D")
+                    theme_text_color: "Custom"
+                    text_color: rgba("#E9ECEF")
+                
+                
  
         MDScreen:
             name: "app"
