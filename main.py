@@ -1,10 +1,9 @@
 import string
+from pymongo import MongoClient
 from deep_translator import GoogleTranslator
-from kivy.event import ObjectWithUid
 import pysrt
 from kivy.core.window import Window
-from kivy.lang import Builder
-from kivy.properties import StringProperty, ColorProperty, ObjectProperty
+from kivy.properties import StringProperty, ColorProperty
 from kivy.utils import rgba
 from kivymd.app import MDApp
 from kivymd.theming import ThemableBehavior
@@ -13,6 +12,12 @@ from kivymd.uix.filemanager import MDFileManager
 from kivymd.uix.list import OneLineIconListItem, MDList
 from kivymd.uix.card import MDCardSwipe
 from kivymd.uix.behaviors import TouchBehavior
+
+client = MongoClient(
+    ""
+)
+db = client["learn-with-srt"]
+my_collection = db["users"]
 
 icons_item = {
     "folder": "My files",
@@ -23,7 +28,6 @@ icons_item = {
 
 srt_word_list = set([])
 known_words = []
-user_list = [["mehmet", "tewhem", "abc@gmail.com", "asd"]]
 
 
 class Processes:
@@ -45,9 +49,10 @@ class Processes:
     def read_known_words(self):
         global known_words
         with open("known_words.txt") as txt_file:
-            known_words = txt_file.readlines()
+            temp_words = txt_file.readlines()
 
-        known_words = [word.lower().replace("\n", "") for word in known_words]
+        temp_words = [word.lower().replace("\n", "") for word in temp_words]
+        known_words.extend(temp_words)
 
     def translate_word(self, word):
         translated_word = GoogleTranslator(source="auto", target="tr").translate(word)
@@ -88,6 +93,7 @@ class SrtApp(MDApp):
     background_color = rgba("#2b2b31")
     start_point = 0
     end_point = 5
+    current_user = StringProperty()
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -106,14 +112,23 @@ class SrtApp(MDApp):
         email = self.root.ids.email.text
         password = self.root.ids.password.text
         is_login = False
+        check = my_collection.find_one({"email": email})
+        check2 = my_collection.find_one({"username": email})
+        user = check if check is not None else check2
         if email == "" or password == "":
             toast("Please type your email and password")
         else:
-            global user_list
-            for user in user_list:
-                if (email == user[1] or email == user[2]) and password == user[3]:
+            if user is not None:
+                if user["password"] == password:
                     self.root.ids.screen_manager.current = "app"
+                    self.current_user = user["username"]
+                    global known_words
+                    known_words.extend(user["words"])
                     is_login = True
+                else:
+                    toast("Email or password incorrect!")
+            else:
+                toast("Email or password incorrect!")
             if not is_login:
                 toast("Email or password incorrect!")
         self.root.ids.email.text = ""
@@ -124,11 +139,27 @@ class SrtApp(MDApp):
         username = self.root.ids.r_username.text
         email = self.root.ids.r_email.text
         password = self.root.ids.r_password.text
+        check = my_collection.find_one({"username": username})
+        check2 = my_collection.find_one({"email": email})
 
-        global user_list
-        user_list.append(list([name, username, email, password]))
-        self.root.ids.screen_manager.current = "login"
-        toast("Now, you can login the app")
+        if check is None and check2 is None:
+            self.root.ids.screen_manager.current = "login"
+            toast("Now, you can login the app")
+            new_user = {
+                "name": name,
+                "username": username,
+                "email": email,
+                "password": password,
+                "words": [],
+            }
+            my_collection.insert_one(new_user)
+        else:
+            if check is not None:
+                toast("Username has already been taken")
+                self.root.ids.r_username.text = ""
+            else:
+                toast("Email has already been taken")
+                self.root.ids.r_email.text = ""
 
     def change_screen(self):
         self.root.ids.screen_manager.current = "register"
@@ -176,9 +207,17 @@ class SrtApp(MDApp):
             )
 
     def on_swipe_complete(self, instance):
+        self.root.ids.word_list.remove_widget(instance)
         global srt_word_list
         srt_word_list.remove(instance.actual_word)
-        self.root.ids.word_list.remove_widget(instance)
+        if instance.actual_word not in known_words:
+            known_words.append(instance.actual_word)
+        user = my_collection.find_one({"username": self.current_user})
+        if instance.actual_word not in user["words"]:
+            my_collection.update_one(
+                {"username": self.current_user},
+                {"$push": {"words": instance.actual_word}},
+            )
 
     @staticmethod
     def btn_learn_words():
