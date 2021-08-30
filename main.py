@@ -12,9 +12,10 @@ from kivymd.uix.filemanager import MDFileManager
 from kivymd.uix.list import OneLineIconListItem, MDList
 from kivymd.uix.card import MDCardSwipe
 from kivymd.uix.behaviors import TouchBehavior
+import os
 
 client = MongoClient(
-    ""
+    os.environ.get("MONGODB_URI")
 )
 db = client["learn-with-srt"]
 my_collection = db["users"]
