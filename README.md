@@ -24,7 +24,7 @@ After uploading, you can now see all the words in the srt file by clicking the w
 
 You can see the Turkish equivalent by clicking on the word and you can also look at the next word page with the previous and next buttons.
 
-![appAnimation](appAnimation.gif)
+![appAnimation](app.gif)
 
 Have a nice try!
 
