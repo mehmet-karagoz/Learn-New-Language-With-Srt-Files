@@ -6,125 +6,334 @@
         icon: root.icon
         theme_text_color : "Custom"
         text_color: rgba("#6C757D")
+<SwipeToLearnWord>:
+    size_hint_y: None
+    height: content.height
+    anchor: "right"
+    type_swipe: "auto"
+    on_swipe_complete: app.on_swipe_complete(root)
 
-<Word>:
-    theme_text_color : "Custom"
-    text_color: rgba("#E9ECEF")
+    MDCardSwipeLayerBox:
+
+    MDCardSwipeFrontBox:
+
+        md_bg_color: app.background_color
+        theme_text_color : "Custom"
+        text_color: rgba("#6C757D")
+        OneLineListItem:
+            id: content
+            text: root.text
+            theme_text_color : "Custom"
+            text_color: 1,1,1,1 
+            on_release: root.translate_pressed_text()
 
 MDScreen:
-    MDNavigationLayout:
-        ScreenManager:
-            MDScreen:
-                name: "home"
-                MDBoxLayout:
-                    orientation: "vertical"
-                    md_bg_color: app.background_color
-
-                    MDToolbar:
-                        id: toolbar
-                        title: "SRT"
-                        left_action_items: [["menu", lambda x : nav_drawer.set_state("open")]]
-                        md_bg_color: rgba("#22222b")
-                    MDBottomNavigation:
-                        panel_color: rgba("#22222b")
-                        MDBottomNavigationItem:
-                            name: "home"
-                            text: "HOME"
-                            icon: "home"
-                            MDBoxLayout:
-                                orientation: "vertical"
-                                md_bg_color: app.background_color
-                                MDLabel:
-                                MDFillRoundFlatButton:
-                                    text: "UPLOAD THE SRT FILE"
-                                    pos_hint: {"center_x": .5, "center_y": .5}
-                                    md_bg_color: rgba("#22222b")
-                                    on_release: app.file_manager_open()
-                                MDLabel:
-                                MDFillRoundFlatButton:
-                                    text: "SHOW YOUR STATUS"
-                                    pos_hint: {"center_x": .5}
-                                    md_bg_color: rgba("#ff922f")
-                                    on_release: app.btn_learn_words()
-                                MDLabel:
-                                MDLabel:
-                                    text: "Do you want to change color unknown words in srt file?"
-                                    color: rgba("#8fff00")
-                                    halign: "center"
-                                MDBoxLayout:
-                                    orientation: "horizontal"
-                                    MDLabel:
-                                    MDFillRoundFlatButton:
-                                        text: "YES"
-                                        pos_hint: {"center_x": .5}
-                                        md_bg_color: rgba("#22222b")
-                                        on_release: app.btn_yes()
-                                    MDLabel:
-                                    MDFillRoundFlatButton:
-                                        text: "NO"
-                                        pos_hint: {"center_x": .5}
-                                        md_bg_color: rgba("#22222b")
-                                        on_release: app.btn_no()
-                                    MDLabel:
-                                MDLabel:
-                        MDBottomNavigationItem:
-                            name: "learn"
-                            text: "WORDS"
-                            icon: "book"
-                            MDBoxLayout:
-                                orientation: "vertical"
-                                md_bg_color: app.background_color
-                                ScrollView:
-                                    MDList:
-                                        id: word_list
-                                        md_bg_color: rgba("#343A40")
-                                MDBoxLayout:
-                                    orientation: "horizontal"
-                                    MDLabel:
-                                    MDFillRoundFlatButton:
-                                        text: "PREVIOUS PAGE"
-                                        md_bg_color: rgba("#22222b")
-                                        pos_hint: {"center_y": .3}
-                                        on_release: app.btn_previous_page()
-                                    MDLabel:
-                                    MDFillRoundFlatButton:
-                                        text: "NEXT PAGE"
-                                        md_bg_color: rgba("#22222b")
-                                        pos_hint: {"center_y": .3}
-                                        on_release: app.btn_next_page()
-                                    MDLabel:
-
-        MDNavigationDrawer:
-            md_bg_color: app.background_color
-            id: nav_drawer
-
-            BoxLayout:
+    ScreenManager:
+        id : screen_manager
+        MDScreen:
+            name: "login"
+            MDFloatLayout:
                 orientation: "vertical"
-                padding: "8dp"
-                spacing: "8dp"
-                AnchorLayout:
-                    anchor_x: "left"
-                    size_hint_y: None
-                    height: avatar.height
+                md_bg_color: app.background_color
+                canvas.before:
+                    Color:
+                        rgba: rgba("#495057") # most
+                    Ellipse:
+                        size: self.size
+                        pos: (self.center_x // 2, self.center_y) 
+                    Ellipse:
+                        size: (500,500)
+                        pos: (0, self.center_y) 
+                    Ellipse:
+                        size: (500,500)
+                        pos: (1, 1) 
+                MDIcon:
+                    halign: 'center'
+                    icon: 'account-circle'
+                    font_size: '70sp'
+                    pos_hint: {'center_x': .5, 'center_y': .75}
+                    theme_text_color: "Custom"
+                    text_color: rgba("#ADB5BD")
+                MDLabel:
+                    text: "WELCOME THE LEARNING NEW LANGUAGE"
+                    halign: "center"
+                    pos_hint: {'center_x': .5, 'center_y': .6}
+                    theme_text_color: "Custom"
+                    text_color: rgba("#ADB5BD")
+                MDTextFieldRound:
+                    id: email
+                    foreground_color: rgba("#ADB5BD")
+                    icon_left: "account"
+                    icon_left_color: rgba("#ADB5BD")
+                    normal_color: rgba("#6C757D")
+                    line_color_normal: rgba("#ADB5BD")
+                    line_color_focus: rgba("#ADB5BD")
+                    size: 300,1 
+                    size_hint: None, None
+                    hint_text: "email or username"
+                    current_hint_text_color: rgba("#ADB5BD")
+                    pos_hint : {"center_x": .5, "center_y": .5}
+                MDTextFieldRound:
+                    id: password 
+                    password: True
+                    foreground_color: rgba("#ADB5BD")
+                    icon_left: "lock"
+                    icon_left_color: rgba("#ADB5BD")
+                    normal_color: rgba("#6C757D")
+                    line_color_normal: rgba("#ADB5BD")
+                    line_color_focus: rgba("#ADB5BD")
+                    size: 300,1 
+                    size_hint: None, None
+                    hint_text: "password"
+                    current_hint_text_color: rgba("#ADB5BD")
+                    pos_hint : {"center_x": .5, "center_y": .4}
 
-                    Image:
-                        id: avatar
-                        size_hint: None, None
-                        size: "56dp", "56dp"
-                        source: "SRT.png"
+                MDFillRoundFlatButton:
+                    text: "LOGIN"
+                    pos_hint: {"center_x": .5, "center_y": .3}
+                    on_release: app.login() 
+                    md_bg_color: rgba("#6C757D")
+                    theme_text_color: "Custom"
+                    text_color: rgba("#E9ECEF")
+                MDFillRoundFlatButton:
+                    text: "REGISTER"
+                    pos_hint: {"center_x": .5, "center_y": .2}
+                    on_release: app.change_screen()
+                    md_bg_color: rgba("#6C757D")
+                    theme_text_color: "Custom"
+                    text_color: rgba("#E9ECEF")
+        MDScreen:
+            name: "register"
+            MDFloatLayout:
+                orientation: "vertical"
+                md_bg_color: app.background_color
+                canvas.before:
+                    Color:
+                        rgba: rgba("#495057") # most
+                    Ellipse:
+                        size: self.size
+                        pos: (self.center_x // 2, self.center_y) 
+                    Ellipse:
+                        size: (500,500)
+                        pos: (0, self.center_y) 
+                    Ellipse:
+                        size: (500,500)
+                        pos: (1, 1) 
+                MDIcon:
+                    halign: 'center'
+                    icon: 'account-circle'
+                    font_size: '70sp'
+                    pos_hint: {'center_x': .5, 'center_y': .75}
+                    theme_text_color: "Custom"
+                    text_color: rgba("#ADB5BD")
                 MDLabel:
-                    text: "SRT LEARNING"
-                    color: rgba("#ffffff")
-                    font_style: "Button"
-                    size_hint_y: None
-                    height: self.texture_size[1]
-                MDLabel:
-                    text: "karagoz.mhmtg@gmail.com"
-                    color: rgba("#f2f2f2")
-                    font_style: "Caption"
-                    size_hint_y: None
-                    height: self.texture_size[1]
-                ScrollView:
-                    DrawerList:
-                        id: md_list
+                    text: "WELCOME THE LEARNING NEW LANGUAGE"
+                    halign: "center"
+                    pos_hint: {'center_x': .5, 'center_y': .6}
+                    theme_text_color: "Custom"
+                    text_color: rgba("#ADB5BD")
+                MDTextFieldRound:
+                    id: r_name
+                    foreground_color: rgba("#ADB5BD")
+                    icon_left: "account-box-outline"
+                    icon_left_color: rgba("#ADB5BD")
+                    normal_color: rgba("#6C757D")
+                    line_color_normal: rgba("#ADB5BD")
+                    line_color_focus: rgba("#ADB5BD")
+                    size: 300,1 
+                    size_hint: None, None
+                    hint_text: "name"
+                    current_hint_text_color: rgba("#ADB5BD")
+                    pos_hint : {"center_x": .5, "center_y": .5}
+                MDTextFieldRound:
+                    id: r_username
+                    foreground_color: rgba("#ADB5BD")
+                    icon_left: "account-circle-outline"
+                    icon_left_color: rgba("#ADB5BD")
+                    normal_color: rgba("#6C757D")
+                    line_color_normal: rgba("#ADB5BD")
+                    line_color_focus: rgba("#ADB5BD")
+                    size: 300,1 
+                    size_hint: None, None
+                    hint_text: "username"
+                    current_hint_text_color: rgba("#ADB5BD")
+                    pos_hint : {"center_x": .5, "center_y": .4}
+                MDTextFieldRound:
+                    id: r_email 
+                    foreground_color: rgba("#ADB5BD")
+                    icon_left: "email"
+                    icon_left_color: rgba("#ADB5BD")
+                    normal_color: rgba("#6C757D")
+                    line_color_normal: rgba("#ADB5BD")
+                    line_color_focus: rgba("#ADB5BD")
+                    size: 300,1 
+                    size_hint: None, None
+                    hint_text: "email"
+                    current_hint_text_color: rgba("#ADB5BD")
+                    pos_hint : {"center_x": .5, "center_y": .3}
+                MDTextFieldRound:
+                    id: r_password 
+                    password: True
+                    foreground_color: rgba("#ADB5BD")
+                    icon_left: "lock"
+                    icon_left_color: rgba("#ADB5BD")
+                    normal_color: rgba("#6C757D")
+                    line_color_normal: rgba("#ADB5BD")
+                    line_color_focus: rgba("#ADB5BD")
+                    size: 300,1 
+                    size_hint: None, None
+                    hint_text: "password"
+                    current_hint_text_color: rgba("#ADB5BD")
+                    pos_hint : {"center_x": .5, "center_y": .2}
+                MDFillRoundFlatButton:
+                    text: "REGISTER"
+                    pos_hint: {"center_x": .5, "center_y": .1}
+                    on_release: app.register()
+                    md_bg_color: rgba("#6C757D")
+                    theme_text_color: "Custom"
+                    text_color: rgba("#E9ECEF")
+                
+                
+ 
+        MDScreen:
+            name: "app"
+            MDNavigationLayout:
+                ScreenManager:
+                    MDScreen:
+                        name: "home"
+                        MDBoxLayout:
+                            orientation: "vertical"
+                            md_bg_color: app.background_color
+
+                            MDToolbar:
+                                id: toolbar
+                                title: "SRT"
+                                left_action_items: [["menu", lambda x : nav_drawer.set_state("open")]]
+                                md_bg_color: rgba("#22222b")
+                            MDBottomNavigation:
+                                panel_color: rgba("#22222b")
+                                MDBottomNavigationItem:
+                                    name: "home"
+                                    text: "HOME"
+                                    icon: "home"
+                                    MDBoxLayout:
+                                        orientation: "vertical"
+                                        md_bg_color: app.background_color
+                                        MDLabel:
+                                        MDFillRoundFlatButton:
+                                            text: "UPLOAD THE SRT FILE"
+                                            pos_hint: {"center_x": .5, "center_y": .5}
+                                            md_bg_color: rgba("#22222b")
+                                            on_release: app.file_manager_open()
+                                        MDLabel:
+                                        MDFillRoundFlatButton:
+                                            text: "SHOW YOUR STATUS"
+                                            pos_hint: {"center_x": .5}
+                                            md_bg_color: rgba("#ff922f")
+                                            on_release: app.btn_learn_words()
+                                        MDLabel:
+                                        MDLabel:
+                                            text: "Do you want to change color unknown words in srt file?"
+                                            color: rgba("#8fff00")
+                                            halign: "center"
+                                        MDBoxLayout:
+                                            orientation: "horizontal"
+                                            MDLabel:
+                                            MDFillRoundFlatButton:
+                                                text: "YES"
+                                                pos_hint: {"center_x": .5}
+                                                md_bg_color: rgba("#22222b")
+                                                on_release: app.btn_yes()
+                                            MDLabel:
+                                            MDFillRoundFlatButton:
+                                                text: "NO"
+                                                pos_hint: {"center_x": .5}
+                                                md_bg_color: rgba("#22222b")
+                                                on_release: app.btn_no()
+                                            MDLabel:
+                                        MDLabel:
+                                MDBottomNavigationItem:
+                                    name: "learn"
+                                    text: "WORDS"
+                                    icon: "book"
+                                    MDScreen:
+                                        MDBoxLayout:
+                                            orientation: "vertical"
+                                            md_bg_color: app.background_color
+                                            spacing: "10dp"
+                                            MDList:
+                                                id: word_list
+                                                md_bg_color: rgba("#343A40")
+                                                padding: 0
+                                            MDBoxLayout:
+                                                orientation: "horizontal"
+                                                MDLabel:
+                                                MDFillRoundFlatButton:
+                                                    text: "PREVIOUS PAGE"
+                                                    md_bg_color: rgba("#22222b")
+                                                    pos_hint: {"center_y": .3}
+                                                    on_release: app.btn_previous_page()
+                                                MDLabel:
+                                                MDFillRoundFlatButton:
+                                                    text: "NEXT PAGE"
+                                                    md_bg_color: rgba("#22222b")
+                                                    pos_hint: {"center_y": .3}
+                                                    on_release: app.btn_next_page()
+                                                MDLabel:
+
+                MDNavigationDrawer:
+                    md_bg_color: app.background_color
+                    id: nav_drawer
+
+                    BoxLayout:
+                        orientation: "vertical"
+                        padding: "8dp"
+                        spacing: "8dp"
+                        AnchorLayout:
+                            anchor_x: "left"
+                            size_hint_y: None
+                            height: avatar.height
+
+                            Image:
+                                id: avatar
+                                size_hint: None, None
+                                size: "56dp", "56dp"
+                                source: "SRT.png"
+                        MDLabel:
+                            text: "SRT LEARNING"
+                            color: rgba("#ffffff")
+                            font_style: "Button"
+                            size_hint_y: None
+                            height: self.texture_size[1]
+                        MDLabel:
+                            text: "karagoz.mhmtg@gmail.com"
+                            color: rgba("#f2f2f2")
+                            font_style: "Caption"
+                            size_hint_y: None
+                            height: self.texture_size[1]
+                        ScrollView:
+                            DrawerList:
+                                id: md_list
+                        MDBoxLayout:
+                            orientation: "horizontal"
+                            MDLabel:
+                            IconLeftWidget:
+                                icon: "brightness-2"
+                                pos_hint: {"center_y":.5}
+                                theme_text_color : "Custom"
+                                text_color: rgba("#6C757D")
+                            MDSwitch:
+                                pos_hint: {"center_y":.5}
+                                width: dp(60)
+                                theme_thumb_color: "Custom"
+                                thumb_color: rgba("#6C757D")
+                                theme_thumb_down_color: "Custom"
+                                thumb_color_down: rgba("#f2f2f2")
+                                on_press: app.switch_theme()
+                            IconRightWidget:
+                                icon: "brightness-5"
+                                pos_hint: {"center_y": .5}
+                                theme_text_color : "Custom"
+                                text_color: rgba("#6C757D")
+                            MDLabel:
 
