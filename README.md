@@ -8,7 +8,7 @@
 [![translator](https://img.shields.io/badge/translator-v1.5.4-pink)](https://github.com/nidhaloff/deep-translator)
 [![python_for_android](https://img.shields.io/badge/python--for--android-develop-white)](https://github.com/kivy/python-for-android)
 
-> This program is both an android and windows application that helps us learn new languages by translating the words in the srt file into Turkish. 
+> This program is both an android and windows application. The purpose of this program is to contribute to learning a new language by learning the meanings of unfamiliar words in the subtitle before watching a movie or a series.
 
 ## Installation
 
