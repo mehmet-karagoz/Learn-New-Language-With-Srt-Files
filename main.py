@@ -13,10 +13,13 @@ from kivymd.uix.list import OneLineIconListItem, MDList
 from kivymd.uix.card import MDCardSwipe
 from kivymd.uix.behaviors import TouchBehavior
 import os
+import dns
 
-client = MongoClient(
-    os.environ.get("MONGODB_URI")
-)
+res = dns.resolver.Resolver(configure=False)
+res.nameservers = ["8.8.8.8"]
+dns.resolver.default_resolver = res
+
+client = MongoClient(os.environ.get("MONGODB_URI"))
 db = client["learn-with-srt"]
 my_collection = db["users"]
 
