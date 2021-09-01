@@ -24,7 +24,7 @@ After uploading, you can now see all the words in the srt file by clicking the w
 
 ![learningScreen](learningScreen.png)
 
-You can see the Turkish equivalent by clicking on the word and you can also look at the next word page with the previous and next buttons.
+You can see the Turkish equivalent by clicking on the word and you can also look at the next word page with the previous and next buttons. If you think you have learned that word or when you come across a word you know, you can add it to the words you know by swiping the word from right to left. After adding, the word is deleted from the list.
 
 ![appAnimation](app.gif)
 
