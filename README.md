@@ -10,6 +10,9 @@
 
 > This program is both an android and windows application. The purpose of this program is to contribute to learning a new language by learning the meanings of unfamiliar words in the subtitle before watching a movie or a series.
 
+<a href="https://www.buymeacoffee.com/mehmetkaragozdev"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=mehmetkaragozdev&button_colour=FFDD00&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff" /></a>
+
+
 ## Installation
 
 Depending on the platform you are using, you can download its file from the [Github releases](https://github.com/mehmet-karagoz/Learn-New-Language-With-Srt-Files/releases) section.
